@@ -9,7 +9,30 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * This class is used to parse java object to json
+ * 
+ * @author SANJI
+ *
+ */
 public class JacksonParsor {
+	/**
+	 * parse to JSON
+	 * @param typeAhead POJO
+	 * @return
+	 */
+	public static String toJson(TypeAhead typeAhead) {
+		String toJson = null;
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			toJson = mapper.writeValueAsString(typeAhead);
+
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return toJson;
+	}
+	// main method
 	public static void main(String[] args) {
 
 		List<String> local = new ArrayList<String>();
@@ -38,19 +61,6 @@ public class JacksonParsor {
 			e.printStackTrace();
 
 		}
-	}
-
-	public static String toJson(TypeAhead typeAhead) {
-		String toJson = null; 
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			toJson = mapper.writeValueAsString(typeAhead);
-			
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return toJson;
 	}
 
 }

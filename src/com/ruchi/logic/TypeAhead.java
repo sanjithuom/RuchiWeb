@@ -2,7 +2,11 @@ package com.ruchi.logic;
 
 import java.io.Serializable;
 import java.util.List;
-
+/**
+ * POJO object
+ * @author SANJI
+ *
+ */
 public class TypeAhead implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;

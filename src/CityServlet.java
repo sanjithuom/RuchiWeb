@@ -15,6 +15,7 @@ import com.ruchi.logic.TypeAhead;
 
 /**
  * Servlet implementation class CityServlet
+ * This Servlet is used to get the city list from the database
  */
 @WebServlet("/CityServlet")
 public class CityServlet extends HttpServlet {
@@ -26,9 +27,12 @@ public class CityServlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * This method is used to get city list from database by client
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//city list from database
 		List<String> local = PersistentManager.getCityList();
+		//creating json for insert in text box typeahead
 		TypeAhead typeAhead = new TypeAhead("cities", local);
         String responseResult = JacksonParsor.toJson(typeAhead);
 

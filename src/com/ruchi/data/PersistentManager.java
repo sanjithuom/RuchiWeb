@@ -7,8 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
+/**
+ * This class is used to access database
+ * @author SANJI
+ *
+ */
 public class PersistentManager {
+	/**
+	 * get food rating for different restaurants in a city
+	 * @param city
+	 * @param food
+	 * @return HashMap of restaurant and ratings
+	 */
 	public static HashMap<String, Double> getFoodRating(String city, String food) {
 		HashMap<String, Double> foodMap = null;
 		Connection con = null;
@@ -42,7 +52,12 @@ public class PersistentManager {
 		}
 		return foodMap;
 	}
-
+	/**
+	 * get restaurant rating for different foods in a restaurant in a city
+	 * @param city
+	 * @param restaurant
+	 * @return HashMap of foods and ratings
+	 */
 	public static HashMap<String, Double> getRestaurantRating(String city,
 			String restaurant) {
 		HashMap<String, Double> restMap = new HashMap<String, Double>();

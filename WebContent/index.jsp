@@ -19,13 +19,15 @@
 
 <script type="text/javascript" class="init">
 	$(document).ready(function() {
+		//Hiding some compenets at the beginning
 		$('#inputText').hide();
 		$('#error_dialog').hide();
 		$('#search').hide();
+		//getting cityList at start and assigning to typeahead textbox
 		$.getJSON("CityServlet", function(result) {
 			$('#cityText').typeahead(result);
 		});
-
+		//selecting option
 		$("input[name='option']").click(function() {
 			if ($('input:radio[name=option]:checked').val() == "restaurant") {
 				$('#inputText').show();
@@ -37,18 +39,21 @@
 				$('#inputText').attr('placeholder', 'Food');
 			}
 		});
+		//submitting search
 		$("#searchForm").submit(function(event) {
 			event.preventDefault();
 			$('#table_content').html("");
 			var option = $('input:radio[name=option]:checked').val();
 			var city = $('#cityText').val();
 			var search = $('#inputText').val();
+			// getting search result from server
 			$.get("RuchiServlet", {
 				city : city,
 				option : option,
 				search : search
 			}).done(function(data) {
 				var msg = data.substring(0, 5);
+				// showing error
 				if (msg == 'Error') {
 					$('#error_dialog').show();
 					$('#error_dialog').html(data);
@@ -60,7 +65,9 @@
 							}
 						}
 					});
-				} else {
+				}
+				// setting up result table
+				else {
 					$('#table_content').html(data);
 					$('#rest_table').dataTable({
 						"order" : [ [ 1, "desc" ] ],
@@ -77,18 +84,23 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<form id="searchForm" class="basic-grey" action="RuchiServlet"
-				method="get">
-				<input id="cityText" class="cities typeahead" type="text"
-					placeholder="Cities"> <br> <input type="radio"
-					name="option" value="restaurant" id="restaurant"> <label
-					for="restaurant">Search by Restaurant</label> <input type="radio"
-					name="option" value="food" id="food"> <label for="food">Search
-					by Food</label> <br> <input id="inputText" class="typeahead"
-					type="text" autocomplete="off"> <br> <input
-					class="submit" id="search" value="Search" type="submit">
-			</form>
-
+			<div id="logo">
+				<img src="img/logo.png" alt="Ruchi"
+					style="width: 160px; height: 160px">
+			</div>
+			<div id="nav">
+				<form id="searchForm" class="basic-grey" action="RuchiServlet"
+					method="get">
+					<input id="cityText" class="cities typeahead" type="text"
+						placeholder="Cities"> <br> <input type="radio"
+						name="option" value="restaurant" id="restaurant"> <label
+						for="restaurant">Search by Restaurant</label> <input type="radio"
+						name="option" value="food" id="food"> <label for="food">Search
+						by Food</label> <br> <input id="inputText" class="typeahead"
+						type="text" autocomplete="off"> <br> <input
+						class="submit" id="search" value="Search" type="submit">
+				</form>
+			</div>
 
 		</div>
 		<br>
